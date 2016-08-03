@@ -1,0 +1,33 @@
+{
+  "name": "redux-reducers-hub",
+  "version": "0.1.0",
+  "description": "Flexible Redux Reducers",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest --coverage"
+  },
+  "devDependencies": {
+    "coveralls": "*",
+    "jest-cli": "^13.2.3"
+  },
+  "jest": {
+    "testPathIgnorePatterns": [
+      "/node_modules/"
+    ]
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/apentle/redux-reducers-hub.git"
+  },
+  "keywords": [
+    "redux-reducers",
+    "redux",
+    "reducers"
+  ],
+  "author": "Doan Nguyen <doannd@apentle.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/apentle/redux-reducers-hub/issues"
+  },
+  "homepage": "https://github.com/apentle/redux-reducers-hub#readme"
+}
