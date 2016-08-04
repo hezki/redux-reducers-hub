@@ -31,7 +31,8 @@ describe('ActionsHub', () => {
       },
       EDIT(state, action) {
         return {text: action.text, edit: true}
-      }
+      },
+      notfunction: true,
     }, 'todo');
     _state = reducer(_state, {type: 'ADD', text: 'New'});
     expect(_state).toEqual({general: {global: 1}, todo: {text: 'New'}});
@@ -52,6 +53,15 @@ describe('ActionsHub', () => {
     expect(_state.todos).toEqual([]);
     _state = reducer(_state, {type: 'READ', list: [1]});
     expect(_state.todos).toEqual([1]);
+
+    // Two functions for a reducer
+    reducer.add({
+      READ(state, action) {
+        return state.concat(action.list);
+      }
+    }, 'todos');
+    _state = reducer(_state, {type: 'READ', list: [0]});
+    expect(_state.todos).toEqual([0, 0]);
   });
 
   it('remove(scope = "general", type): remove old reducer', () => {
