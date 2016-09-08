@@ -3,7 +3,7 @@
 jest.unmock('../index');
 const reducer = require('../index');
 
-describe('ActionsHub', () => {
+describe('ReducersHub', () => {
   it('Hub reducer function', () => {
     expect(reducer(undefined, {})).toEqual({});
     expect(reducer({session: true}), {}).toEqual({session: true});
@@ -78,5 +78,10 @@ describe('ActionsHub', () => {
       }
     }, 'todos', []);
     expect(reducer(undefined, {type: 'READ', payload: [2]}).todos).toEqual([2]);
+  });
+
+  it('reset(): reset all reducers data', () => {
+    reducer.reset();
+    expect(reducer(undefined, {type: 'READ', payload: [2]})).toEqual({});
   });
 });

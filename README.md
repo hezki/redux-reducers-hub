@@ -39,3 +39,4 @@ const store = createStore(reducer);
 1. **add(reducers, scope = "general", defaultState = {})** add new reducers to hub
 2. **remove(scope = "general", ?type)** Remove old reducer from hub
 3. **replace(reducers, scope = "general", defaultState = {})** Replace reducers for a scope
+4. **reset()** Reset all reducer data

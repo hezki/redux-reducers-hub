@@ -3,7 +3,13 @@
 var _reducers = {};
 var _combines = {};
 
-// Reducers Hub
+/**
+ * reducer - redux reducer function
+ *
+ * @param  {mixed} state   old redux state
+ * @param  {object} action redux action
+ * @returns {mixed}        new redux state
+ */
 module.exports = function(state, action) {
   if (state === undefined) state = {};
   var hasChanged = false;
@@ -18,6 +24,12 @@ module.exports = function(state, action) {
   return hasChanged ? nextState : state;
 }
 
+/**
+ * defineReducer - private define sub reducer
+ *
+ * @param  {string} scope state data scope
+ * @returns {undefined}
+ */
 function defineReducer(scope) {
   _combines[scope] = function(state, action) {
     var reducers = _reducers[scope];
@@ -39,7 +51,14 @@ function defineReducer(scope) {
   };
 }
 
-// Methods
+/**
+ * add - add reducers
+ *
+ * @param  {object} reducers     reducer functions
+ * @param  {string} scope        state data scope
+ * @param  {mixed} defaultState  default state of scope
+ * @returns {undefined}
+ */
 function add(reducers, scope, defaultState) {
   if (scope === undefined) scope = "general";
   // Add combine reducer
@@ -62,6 +81,13 @@ function add(reducers, scope, defaultState) {
   _reducers[scope] = scopeReducers;
 }
 
+/**
+ * remove - remove reducers by scope & type
+ *
+ * @param  {string} scope state data scope
+ * @param  {string} type  action.type that reducer affect
+ * @returns {undefined}
+ */
 function remove(scope, type) {
   if (scope === undefined) scope = "general";
   if (type === undefined) {
@@ -72,11 +98,28 @@ function remove(scope, type) {
   }
 }
 
+/**
+ * replace - replace with new reducers
+ *
+ * @param  {object} reducers     reducer functions
+ * @param  {string} scope        state data scope
+ * @param  {mixed} defaultState  default state of scope
+ * @returns {undefined}
+ */
 function replace(reducers, scope, defaultState) {
   remove(scope);
   add(reducers, scope, defaultState);
 }
 
+/**
+ * reset - reset all reducers data
+ */
+function reset() {
+  _reducers = {};
+  _combines = {};
+}
+
 module.exports.add = add;
 module.exports.remove = remove;
 module.exports.replace = replace;
+module.exports.reset = reset;
