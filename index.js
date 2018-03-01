@@ -68,15 +68,20 @@ function add(reducers, scope, defaultState) {
   _combines[scope] !== undefined || defineReducer(scope);
   // Add data
   var scopeReducers = _reducers[scope] || {};
-  for (var type in reducers) {
-    var reducer = reducers[type];
-    if (typeof reducer === 'function') {
-      if (scopeReducers[type] === undefined) {
-        scopeReducers[type] = [ reducer ];
-      } else {
-        scopeReducers[type].push(reducer);
+  if (typeof reducers === 'object') {
+    for (var type in reducers) {
+      var reducer = reducers[type];
+      if (typeof reducer === 'function') {
+        if (scopeReducers[type] === undefined) {
+          scopeReducers[type] = [ reducer ];
+        } else {
+          scopeReducers[type].push(reducer);
+        }
       }
     }
+  } else {
+    if (!scopeReducers.all) scopeReducers.all = [];
+    scopeReducers.all.push(reducers);
   }
   if (defaultState !== undefined) {
     scopeReducers._default = defaultState;
