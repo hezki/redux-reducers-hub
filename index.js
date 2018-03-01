@@ -16,10 +16,13 @@ module.exports = function(state, action) {
   var nextState = {};
   for (var key in _combines) {
     var reducer = _combines[key];
-    var oldState = state[key];
+    var oldState = key == '/' ? state : state[key];
     var newState = reducer(oldState, action);
     hasChanged = hasChanged || oldState !== newState;
-    nextState[key] = newState;
+    if (key == '/')
+      nextState = newState;
+    else
+      nextState[key] = newState;
   }
   return hasChanged ? nextState : state;
 }
